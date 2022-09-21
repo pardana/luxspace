@@ -5,8 +5,8 @@ export default function Sitemap(props) {
   return (
     <>
       {/* START: ASIDE MENU */}
-      <section className="">
-        <div className="border-t border-b border-gray-200 py-12 mt-16 px-4">
+      <section className="sitemap">
+        <div className="border-b border-gray-200 py-12 mt-16 px-4">
           <div className="flex justify-center mb-8">
             <img
               src="/images/content/logo.png"
@@ -31,7 +31,10 @@ export default function Sitemap(props) {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/promotion" className="hover:underline py-1 block">
+                    <Link
+                      to="/promotion"
+                      className="hover:underline py-1 block"
+                    >
                       Promotion
                     </Link>
                   </li>
@@ -71,7 +74,10 @@ export default function Sitemap(props) {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/developer" className="hover:underline py-1 block">
+                    <Link
+                      to="/developer"
+                      className="hover:underline py-1 block"
+                    >
                       For Developer
                     </Link>
                   </li>

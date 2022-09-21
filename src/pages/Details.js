@@ -2,8 +2,8 @@ import React from "react";
 
 import Header from "parts/Header";
 import Breadcrumb from "components/Breadcrumb/";
-// import BrowseRoom from "parts/HomePage/BrowseRoom";
-// import JustArrived from "parts/HomePage/JustArrived";
+import ProductDetails from "parts/Details/ProductDetails";
+import Suggestion from "parts/Details/Suggestion";
 import Clients from "parts/Clients";
 import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
@@ -11,7 +11,7 @@ import Footer from "parts/Footer";
 export default function HomePage() {
   return (
     <>
-      <Header theme="black"/>
+      <Header theme="black" />
       <Breadcrumb
         list={[
           { url: "/", name: "Home" },
@@ -19,6 +19,8 @@ export default function HomePage() {
           { url: "/categories/91231/products/7888", name: "Details" },
         ]}
       />
+      <ProductDetails />
+      <Suggestion />
       <Clients />
       <Sitemap />
       <Footer />
