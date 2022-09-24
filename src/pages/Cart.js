@@ -15,7 +15,7 @@ export default function Cart() {
       <Breadcrumb
         list={[
           { url: "/", name: "Home" },
-          { url: "/cart/", name: "Shopping Cart" },
+          { url: "/cart", name: "Shopping Cart" },
         ]}
       />
 
