@@ -17,12 +17,12 @@ export default function Hero(props) {
             membuat ruangan terasa homey
           </h2>
           <div>
-            <Link
-              to="#browse-the-room"
+            <a
+              href="#browse-the-room"
               className="bg-pink-400 text-black hover:bg-black hover:text-pink-400 rounded-full px-8 py-3 mt-4 inline-block flex-none transition duration-200"
             >
               Explore Now
-            </Link>
+            </a>
           </div>
         </div>
         <div className="w-full inset-0 md:relative md:w-1/2">
