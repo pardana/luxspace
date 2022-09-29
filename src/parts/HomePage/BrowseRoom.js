@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import useAsync from "helpers/hooks/useAsync";
 
 export default function BrowseRoom() {
-  const { data, status, error, run } = useAsync({ data: { username: "" } });
+  const { data, status, error, run, isLoading } = useAsync({
+    data: { username: "" },
+  });
 
   useEffect(() => {
     run(
@@ -18,9 +20,9 @@ export default function BrowseRoom() {
       })
     );
   }, [run]);
-
   console.log(data, status, error);
 
+  if (isLoading) return "Loading";
   return (
     <>
       {/* START: BROWSE THE ROOM */}
