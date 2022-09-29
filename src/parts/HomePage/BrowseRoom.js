@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAsync from "helpers/hooks/useAsync";
 
-export default function BrowseRoom(props) {
+export default function BrowseRoom() {
+  const { data, status, error, run } = useAsync({ data: { username: "" } });
+
+  useEffect(() => {
+    run(
+      fetch(
+        "https://e5134442-01c9-4161-9974-aa2f1317fda6.mock.pstmn.io/api/categories/?page=1&limit=4"
+      ).then(async (response) => {
+        const jsonResponse = await response.json();
+        if (response.ok) {
+          return jsonResponse;
+        } else {
+          throw new Error(JSON.stringify(jsonResponse));
+        }
+      })
+    );
+  }, [run]);
+
+  console.log(data, status, error);
+
   return (
     <>
       {/* START: BROWSE THE ROOM */}

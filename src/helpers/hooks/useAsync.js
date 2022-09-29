@@ -34,5 +34,5 @@ export default function useAsync(initialState) {
     [setState]
   );
 
-  return { state: data, status, error, run };
+  return { data, status, error, run };
 }
