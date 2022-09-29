@@ -1,4 +1,5 @@
 import React from "react";
+import useAsync from "helpers/hooks/useAsync";
 
 export default function BrowseRoom(props) {
   return (
