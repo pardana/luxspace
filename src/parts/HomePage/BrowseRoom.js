@@ -7,19 +7,9 @@ export default function BrowseRoom() {
   });
 
   useEffect(() => {
-    run(
-      fetch(
-        "https://e5134442-01c9-4161-9974-aa2f1317fda6.mock.pstmn.io/api/categories/?page=1&limit=4"
-      ).then(async (response) => {
-        const jsonResponse = await response.json();
-        if (response.ok) {
-          return jsonResponse;
-        } else {
-          throw new Error(JSON.stringify(jsonResponse));
-        }
-      })
-    );
+    run(fetch({ url: "/api/categories/?page=1&limit=4" }));
   }, [run]);
+
   console.log(data, status, error);
 
   if (isLoading) return "Loading";
