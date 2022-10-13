@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback, useLayoutEffect } from "react";
+
 import { addClass, removeClass } from "helpers/format/classNameModifier";
 
 export default function Carousel({ children, refContainer }) {
@@ -17,8 +18,8 @@ export default function Carousel({ children, refContainer }) {
   const posFinal = useRef();
   const isAllowShift = useRef(true);
   const cards = useRef();
-  const cardSize = cards.current?.[0].offsetWidth || 0;
   const cardCount = cards.current?.length || 0;
+  const cardSize = cards.current?.[0].offsetWidth || 0;
 
   const fnCheckIndex = useCallback(
     (e) => {
@@ -117,7 +118,7 @@ export default function Carousel({ children, refContainer }) {
       e = e || window.event;
       e.preventDefault();
 
-      posInitial = refDragHandler.current.offsetLeft;
+      posInitial.current = refDragHandler.current.offsetLeft;
 
       if (e.type === "touchstart") {
         posX1.current = e.touches[0].clientX;
@@ -130,37 +131,34 @@ export default function Carousel({ children, refContainer }) {
     [onDragEnd, onDragMove]
   );
 
-  const onClick = useCallback(
-    (e) => {
-      e = e || window.event;
-      !isAllowShift.current && e.preventDefault();
-    },
-    [input]
-  );
+  const onClick = useCallback((e) => {
+    e = e || window.event;
+    !isAllowShift.current && e.preventDefault();
+  }, []);
 
   useLayoutEffect(() => {
     const refForwardDragHandler = refDragHandler.current;
 
     refForwardDragHandler.onmousedown = onDragStart;
     refForwardDragHandler.addEventListener("touchstart", onDragStart);
-    refForwardDragHandler.addEventListener("touchstart", onDragMove);
-    refForwardDragHandler.addEventListener("touchmove", onDragEnd);
+    refForwardDragHandler.addEventListener("touchend", onDragEnd);
+    refForwardDragHandler.addEventListener("touchmove", onDragMove);
     refForwardDragHandler.addEventListener("click", onClick);
     refForwardDragHandler.addEventListener("transitionend", fnCheckIndex);
     return () => {
       refForwardDragHandler.removeEventListener("touchstart", onDragStart);
-      refForwardDragHandler.removeEventListener("touchstart", onDragMove);
-      refForwardDragHandler.removeEventListener("touchmove", onDragEnd);
-      refForwardDragHandler.addEventListener("click", onClick);
-      refForwardDragHandler.addEventListener("transitionend", fnCheckIndex);
+      refForwardDragHandler.removeEventListener("touchend", onDragEnd);
+      refForwardDragHandler.removeEventListener("touchmove", onDragMove);
+      refForwardDragHandler.removeEventListener("click", onClick);
+      refForwardDragHandler.removeEventListener("transitionend", fnCheckIndex);
     };
-  }, [onDragStart, onDragMove, onDragEnd, onClick, fnCheckIndex]);
+  }, [onDragStart, onDragEnd, onDragMove, onClick, fnCheckIndex]);
 
   useLayoutEffect(() => {
     if (refDragHandler.current) {
-      cards.current = refDragHandler.current.getElementByClassName("cards");
+      cards.current = refDragHandler.current.getElementsByClassName("card");
     }
-  });
+  }, []);
 
   return (
     <div

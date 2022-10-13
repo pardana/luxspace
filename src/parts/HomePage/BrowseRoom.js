@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
+
 import useAsync from "helpers/hooks/useAsync";
 import fetch from "helpers/fetch";
+// import "helpers/format/thousand";
 
 function Loading({ ratio = {} }) {
   const dummy = [
@@ -55,15 +57,11 @@ function Loading({ ratio = {} }) {
 }
 
 export default function BrowseRoom() {
-  const { data, status, error, run, isLoading } = useAsync({
-    data: { username: "" },
-  });
+  const { data, run, isLoading } = useAsync();
 
   useEffect(() => {
     run(fetch({ url: "/api/categories/?page=1&limit=4" }));
   }, [run]);
-
-  // console.log(data, status, error);
 
   const ratioClassNames = {
     wrapper: {
@@ -102,7 +100,7 @@ export default function BrowseRoom() {
           {isLoading ? (
             <Loading ratio={ratioClassNames} />
           ) : (
-            data.data?.map((item, index) => {
+            data.data.map((item, index) => {
               return (
                 <div
                   key={item.id}
