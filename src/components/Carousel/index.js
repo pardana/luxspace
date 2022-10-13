@@ -3,6 +3,7 @@ import { addClass, removeClass } from "helpers/format/classNameModifier";
 
 export default function Carousel({ children, refContainer }) {
   const refDragHandler = useRef(null);
+  const containerClientRect = refContainer.current.getBoundingClientRect();
   const [index, setIndex] = useState(0);
 
   const threshold = 100;
@@ -19,30 +20,33 @@ export default function Carousel({ children, refContainer }) {
   const cardSize = cards.current?.[0].offsetWidth || 0;
   const cardCount = cards.current?.length || 0;
 
-  const fnCheckIndex = useCallback(() => {
-    if (e.propertyName === "left") {
-      setTimeout(() => {
-        removeClass(refDragHandler.current, "transition-all duration-200");
-      }, 200);
+  const fnCheckIndex = useCallback(
+    (e) => {
+      if (e.propertyName === "left") {
+        setTimeout(() => {
+          removeClass(refDragHandler.current, "transition-all duration-200");
+        }, 200);
 
-      const isMobile = window.innerWidth < 767 ? 0 : -1;
-      if (index <= 0) {
-        refDragHandler.current.style.left = 0;
-        setIndex(0);
-      } else if (index >= cardCount - itemToShow) {
-        refDragHandler.current.style.left = -(
-          (cardCount - itemToShow + isMobile) *
-          cardSize
-        );
-        setIndex(cardCount - itemToShow);
-      } else if (index === cardCount || index === cardCount - 1) {
-        refDragHandler.current.style.left = (cardCount - 1) * cardSize;
-        setIndex(cardCount - 1);
+        const isMobile = window.innerWidth < 767 ? 0 : -1;
+        if (index <= 0) {
+          refDragHandler.current.style.left = 0;
+          setIndex(0);
+        } else if (index >= cardCount - itemToShow) {
+          refDragHandler.current.style.left = `${-(
+            (cardCount - itemToShow + isMobile) *
+            cardSize
+          )}px`;
+          setIndex(cardCount - itemToShow);
+        } else if (index === cardCount || index === cardCount - 1) {
+          refDragHandler.current.style.left = `${(cardCount - 1) * cardSize}px`;
+          setIndex(cardCount - 1);
+        }
+
+        isAllowShift.current = true;
       }
-
-      isAllowShift.current = true;
-    }
-  }, [cardCount, cardSize, index, itemToShow]);
+    },
+    [cardCount, cardSize, index, itemToShow]
+  );
 
   const fnShiftItem = useCallback(
     (direction) => {
@@ -126,10 +130,13 @@ export default function Carousel({ children, refContainer }) {
     [onDragEnd, onDragMove]
   );
 
-  const onClick = (e) => {
-    e = e || window.event;
-    !isAllowShift.current && e.preventDefault();
-  };
+  const onClick = useCallback(
+    (e) => {
+      e = e || window.event;
+      !isAllowShift.current && e.preventDefault();
+    },
+    [input]
+  );
 
   useLayoutEffect(() => {
     const refForwardDragHandler = refDragHandler.current;
@@ -149,8 +156,18 @@ export default function Carousel({ children, refContainer }) {
     };
   }, [onDragStart, onDragMove, onDragEnd, onClick, fnCheckIndex]);
 
+  useLayoutEffect(() => {
+    if (refDragHandler.current) {
+      cards.current = refDragHandler.current.getElementByClassName("cards");
+    }
+  });
+
   return (
-    <div ref={refDragHandler} className="flex -mx-4 flex-row relative">
+    <div
+      ref={refDragHandler}
+      className="flex -mx-4 flex-row relative"
+      style={{ paddingLeft: containerClientRect.left - 16 }}
+    >
       {children}
     </div>
   );

@@ -15,7 +15,7 @@ export default function JustArrived(props) {
     run(fetch({ url: "/api/products/?page=1&limit=10" }));
   }, [run]);
 
-  console.log(data, status, error);
+  // console.log(data, status, error);
 
   return (
     <>
