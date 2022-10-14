@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import { useParams } from "react-router-dom";
+import useAsync from "helpers/hooks/useAsync";
+import fetch from "helpers/fetch";
 
 import Header from "parts/Header";
 import Breadcrumb from "components/Breadcrumb/";
@@ -9,6 +13,14 @@ import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
 
 export default function HomePage() {
+  const { idp } = useParams();
+
+  const { data, run, isLoading } = useAsync();
+
+  useEffect(() => {
+    run(fetch({ url: `/api/products/${idp}` }));
+  }, [run]);
+
   return (
     <>
       <Header theme="black" />
@@ -19,8 +31,8 @@ export default function HomePage() {
           { url: "/categories/91231/products/7888", name: "Details" },
         ]}
       />
-      <ProductDetails />
-      <Suggestion />
+      <ProductDetails data={data} />
+      <Suggestion data={data?.relatedProducts || {}} />
       <Clients />
       <Sitemap />
       <Footer />
