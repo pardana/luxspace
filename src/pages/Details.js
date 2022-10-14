@@ -31,8 +31,13 @@ export default function HomePage() {
           { url: "/categories/91231/products/7888", name: "Details" },
         ]}
       />
-      <ProductDetails data={data} />
-      <Suggestion data={data?.relatedProducts || {}} />
+      {isLoading ? "Loading..." : <ProductDetails data={data} />}
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <Suggestion data={data?.relatedProducts || {}} />
+      )}
+
       <Clients />
       <Sitemap />
       <Footer />
