@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer } from "react";
 
 const Context = createContext();
 const initialState = {
-  cart: { ada: true },
+  cart: {  },
 };
 
 export function useGlobalContext() {
