@@ -6,10 +6,12 @@ import Details from "pages/Details";
 import Cart from "pages/Cart";
 import Congratulation from "pages/Congratulation";
 import NotFound from "pages/NotFound";
+import Provider from "helpers/hooks/useGlobalContext";
 
 function App() {
   return (
-    <div className="App">
+    <Provider>
+      {/* <div className="App"> */}
       <Router>
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -20,7 +22,8 @@ function App() {
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
-    </div>
+      {/* </div> */}
+    </Provider>
   );
 }
 
