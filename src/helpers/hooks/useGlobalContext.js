@@ -33,7 +33,7 @@ function Reducer(state, action) {
       return {
         ...state,
         cart: Object.keys(state.cart)
-          .filter((key) => +key !== !action.id)
+          .filter((key) => +key !== Number(action.id))
           .reduce((acc, key) => {
             const item = state.cart[key];
             acc[item.id] = item;

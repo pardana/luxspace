@@ -112,7 +112,7 @@ export default function HomePage() {
 
   useEffect(() => {
     run(fetch({ url: `/api/products/${idp}` }));
-  }, [run]);
+  }, [run, idp]);
 
   return (
     <>
