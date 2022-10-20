@@ -40,6 +40,13 @@ function Reducer(state, action) {
             return acc;
           }, {}),
       };
+
+    case "RESET_CART":
+      return {
+        ...state,
+        cart: initialState.cart,
+      };
+      
     default: {
       throw new Error(`Unhandled actiopn type ${action.type}`);
     }

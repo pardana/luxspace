@@ -22,7 +22,7 @@ function Loading() {
 }
 
 export default function JustArrived(props) {
-  const { data, status, error, run, isLoading } = useAsync({
+  const { data, error, run, isLoading } = useAsync({
     data: { username: "" },
   });
 
