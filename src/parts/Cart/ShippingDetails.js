@@ -7,7 +7,7 @@ import { useGlobalContext } from "helpers/hooks/useGlobalContext";
 
 export default function ShippingDetails() {
   const history = useHistory();
-  const { dispatch } = useGlobalContext();
+  const { state, dispatch } = useGlobalContext();
   const { data, run, isLoading } = useAsync();
   const { state: payload, fnUpdateState } = useForm({
     completeName: "",
@@ -33,7 +33,10 @@ export default function ShippingDetails() {
       const res = await fetch({
         url: `/api/checkout`,
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          ...payload,
+          cart: Object.keys(state.cart).map((key) => state.cart[key]),
+        }),
       });
       console.log(res);
       if (res) {
@@ -47,6 +50,8 @@ export default function ShippingDetails() {
     }
   }
 
+  console.log(payload);
+
   return (
     <div className="w-full md:px-4 md:w-4/12" id="shipping-detail">
       <div className="bg-gray-100 px-4 py-6 md:p-8 md:rounded-3xl">
@@ -56,7 +61,7 @@ export default function ShippingDetails() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label forhtml="complete-name" className="text-sm mb-2">
+            <label htmlFor="complete-name" className="text-sm mb-2">
               Complete Name
             </label>
             <input
@@ -70,7 +75,7 @@ export default function ShippingDetails() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label forhtml="emailAddress" className="text-sm mb-2">
+            <label htmlFor="emailAddress" className="text-sm mb-2">
               Email Address
             </label>
             <input
@@ -84,7 +89,7 @@ export default function ShippingDetails() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label forhtml="address" className="text-sm mb-2">
+            <label htmlFor="address" className="text-sm mb-2">
               Address
             </label>
             <input
@@ -98,7 +103,7 @@ export default function ShippingDetails() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label forhtml="phoneNumber" className="text-sm mb-2">
+            <label htmlFor="phoneNumber" className="text-sm mb-2">
               Phone Number
             </label>
             <input
@@ -150,7 +155,7 @@ export default function ShippingDetails() {
           </div>
 
           <div className="flex flex-col mb-4">
-            <label forhtml="payment" className="text-sm mb-2">
+            <label htmlFor="payment" className="text-sm mb-2">
               Choose Payment
             </label>
 
