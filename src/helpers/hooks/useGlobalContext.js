@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer } from "react";
 
 const Context = createContext();
 const initialState = {
-  cart: {  },
+  cart: {},
 };
 
 export function useGlobalContext() {
@@ -27,6 +27,18 @@ function Reducer(state, action) {
               ...state.cart,
               [action.item.id]: action.item,
             },
+      };
+
+    case "REMOVE_FROM_CART":
+      return {
+        ...state,
+        cart: Object.keys(state.cart)
+          .filter((key) => +key !== !action.id)
+          .reduce((acc, key) => {
+            const item = state.cart[key];
+            acc[item.id] = item;
+            return acc;
+          }, {}),
       };
     default: {
       throw new Error(`Unhandled actiopn type ${action.type}`);
