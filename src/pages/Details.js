@@ -12,6 +12,7 @@ import Clients from "parts/Clients";
 import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
 import Document from "parts/Document";
+import PagesErrorMessage from "parts/PagesErrorMessage";
 
 function LoadingProductDetails() {
   return (
@@ -109,7 +110,7 @@ function LoadingSuggestion() {
 export default function HomePage() {
   const { idp } = useParams();
 
-  const { data, run, isLoading } = useAsync();
+  const { data, error, run, isLoading, isError } = useAsync();
 
   useEffect(() => {
     run(fetch({ url: `/api/products/${idp}` }));
@@ -126,12 +127,25 @@ export default function HomePage() {
         ]}
       />
 
-      {isLoading ? <LoadingProductDetails /> : <ProductDetails data={data} />}
-
-      {isLoading ? (
-        <LoadingSuggestion />
+      {isError ? (
+        <PagesErrorMessage
+          title="Product Not Found"
+          body={error.errors.message}
+        />
       ) : (
-        <Suggestion data={data?.relatedProducts || {}} />
+        <>
+          {isLoading ? (
+            <LoadingProductDetails />
+          ) : (
+            <ProductDetails data={data} />
+          )}
+
+          {isLoading ? (
+            <LoadingSuggestion />
+          ) : (
+            <Suggestion data={data?.relatedProducts || {}} />
+          )}
+        </>
       )}
 
       <Clients />
