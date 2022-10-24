@@ -38,7 +38,7 @@ export default function ShippingDetails() {
           cart: Object.keys(state.cart).map((key) => state.cart[key]),
         }),
       });
-      console.log(res);
+      // console.log(res);
       if (res) {
         history.push("/congratulation");
         dispatch({
@@ -50,7 +50,7 @@ export default function ShippingDetails() {
     }
   }
 
-  console.log(payload);
+  // console.log(payload);
 
   return (
     <div className="w-full md:px-4 md:w-4/12" id="shipping-detail">
