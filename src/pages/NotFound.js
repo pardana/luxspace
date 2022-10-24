@@ -3,16 +3,15 @@ import Header from "parts/Header";
 import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
 import PagesErrorMessage from "parts/PagesErrorMessage";
-import useScrollToTop from "helpers/hooks/useScrollToTop";
+import Document from "parts/Document";
 
 export default function NotFound() {
-  useScrollToTop();
   return (
-    <>
+    <Document>
       <Header theme="black" />
       <PagesErrorMessage />
       <Sitemap />
       <Footer />
-    </>
+    </Document>
   );
 }

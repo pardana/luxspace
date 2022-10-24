@@ -4,12 +4,11 @@ import Breadcrumb from "components/Breadcrumb/";
 import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
 import { Link } from "react-router-dom";
-import useScrollToTop from "helpers/hooks/useScrollToTop";
+import Document from "parts/Document";
 
 export default function Congratulation() {
-  useScrollToTop();
   return (
-    <>
+    <Document>
       <Header theme="black" />
       <Breadcrumb
         list={[
@@ -48,6 +47,6 @@ export default function Congratulation() {
 
       <Sitemap />
       <Footer />
-    </>
+    </Document>
   );
 }

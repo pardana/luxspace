@@ -11,7 +11,7 @@ import Suggestion from "parts/Details/Suggestion";
 import Clients from "parts/Clients";
 import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
-import useScrollToTop from "helpers/hooks/useScrollToTop";
+import Document from "parts/Document";
 
 function LoadingProductDetails() {
   return (
@@ -107,7 +107,6 @@ function LoadingSuggestion() {
 }
 
 export default function HomePage() {
-  useScrollToTop();
   const { idp } = useParams();
 
   const { data, run, isLoading } = useAsync();
@@ -117,7 +116,7 @@ export default function HomePage() {
   }, [run, idp]);
 
   return (
-    <>
+    <Document>
       <Header theme="black" />
       <Breadcrumb
         list={[
@@ -138,6 +137,6 @@ export default function HomePage() {
       <Clients />
       <Sitemap />
       <Footer />
-    </>
+    </Document>
   );
 }
