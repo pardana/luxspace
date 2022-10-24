@@ -4,8 +4,10 @@ import Breadcrumb from "components/Breadcrumb/";
 import Sitemap from "parts/Sitemap";
 import Footer from "parts/Footer";
 import { Link } from "react-router-dom";
+import useScrollToTop from "helpers/hooks/useScrollToTop";
 
 export default function Congratulation() {
+  useScrollToTop();
   return (
     <>
       <Header theme="black" />
@@ -29,8 +31,8 @@ export default function Congratulation() {
                 Ah yes it’s success!
               </h2>
               <p className="text-lg mb-12">
-                Furniture yang anda beli akan kami kirimkan saat ini juga. So now
-                please sit tight and be ready for it.
+                Furniture yang anda beli akan kami kirimkan saat ini juga. So
+                now please sit tight and be ready for it.
               </p>
               <Link
                 to="/"
